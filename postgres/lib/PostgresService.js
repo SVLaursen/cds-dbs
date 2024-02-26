@@ -230,6 +230,7 @@ GROUP BY k
         })
         const proms = []
         for (const stream of streams) {
+          if (!stream) continue;
           proms.push(this.dbc.query(stream))
         }
         await Promise.all(proms)
