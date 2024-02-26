@@ -286,7 +286,8 @@ GROUP BY k
 
   async onSELECT({ query, data }) {
     // workaround for chunking odata streaming
-    if (query.SELECT?.columns?.find(col => col.as === '$mediaContentType')) {
+    if (query.SELECT?.columns?.find(col => col.as === '$mediaContentType') &&
+        query.SELECT?.columns?.find(col => col.type === 'cds.LargeBinary')) {
       const columns = query.SELECT.columns
       const index = columns.findIndex(col => query.elements[col.ref?.[col.ref.length - 1]].type === 'cds.LargeBinary')
       const binary = columns[index]
